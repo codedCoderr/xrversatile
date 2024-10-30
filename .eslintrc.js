@@ -67,4 +67,5 @@ module.exports = {
       },
     },
   },
+  ignorePatterns: ['dist/', 'build/'],
 };
