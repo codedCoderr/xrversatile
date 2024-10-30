@@ -1,6 +1,5 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { Logger } from 'winston';
 import { LOGGER } from '@constants/index';
 import { json, urlencoded } from 'express';
@@ -24,15 +23,14 @@ async function bootstrap() {
   );
   app.useGlobalFilters(new AllExceptionsFilter(app.get<Logger>(LOGGER)));
 
-  const configService = app.get(ConfigService);
-  const port = configService.get<number>('port') || 3000;
+  const port = process.env.PORT || 3000;
 
   app.use(json({ limit: '100mb' }));
   app.use(urlencoded({ limit: '100mb', extended: true }));
 
-  await app.listen(port);
+  await app.listen(port, '0.0.0.0');
 
   const logger = app.get<Logger>(LOGGER);
-  logger.info(`Application is running on: ${await app.getUrl()}`);
+  logger.info(`Application is running on port: ${port}`);
 }
 bootstrap();
