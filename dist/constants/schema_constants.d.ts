@@ -1,0 +1,23 @@
+export declare const USER = "User";
+export declare const JOB_OPENING = "JobOpening";
+export declare const JOB_APPLICATION = "JobApplication";
+export declare const JOB_APPLICATION_AGENDA = "JobApplicationAgenda";
+export declare const JOB_APPLICATION_COMMENT = "JobApplicationComment";
+export declare const MEETING = "Meeting";
+export declare const CAMPAIGN = "campaign";
+export declare const SUBSCRIBER = "Subscriber";
+export declare const OFFER = "Offer";
+export declare const AUDIT_LOG = "AuditLog";
+declare const _default: {
+    USER: string;
+    JOB_OPENING: string;
+    JOB_APPLICATION: string;
+    JOB_APPLICATION_AGENDA: string;
+    JOB_APPLICATION_COMMENT: string;
+    MEETING: string;
+    CAMPAIGN: string;
+    SUBSCRIBER: string;
+    OFFER: string;
+    AUDIT_LOG: string;
+};
+export default _default;

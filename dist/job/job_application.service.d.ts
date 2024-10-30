@@ -1,0 +1,30 @@
+import { UploadService } from '@src/uploader/uploader.service';
+import { UtilService } from '@src/util/util.service';
+import { ClientSession, Connection, Model } from 'mongoose';
+import { Logger } from 'winston';
+import { FileUpload } from '@src/uploader/interfaces';
+import { UserDocument } from '@src/user/schemas/user.schema';
+import { Meeting } from '@src/meeting/schemas/meeting.schema';
+import { OfferService } from '@src/offer/offer.service';
+import { JobOpening } from './schemas/job-opening.schema';
+import { CVUploadDTO, JobApplicationAgendaMoveInput, ToggleApplicationStatusDTO } from './dto/job_application_dtos';
+import { JobApplication, JobApplicationAgenda } from './interfaces/job.interface';
+import { ParsedCVData } from './types';
+import { JobService } from './job.service';
+export declare class JobApplicationService {
+    private readonly jobApplicationModel;
+    private readonly jobApplicationAgendaModel;
+    private readonly connection;
+    private jobService;
+    private offerService;
+    private uploadService;
+    private utilService;
+    constructor(jobApplicationModel: Model<JobApplication>, jobApplicationAgendaModel: Model<JobApplicationAgenda>, connection: Connection, jobService: JobService, offerService: OfferService, uploadService: UploadService, utilService: UtilService);
+    createJobApplication(jobId: string, input: CVUploadDTO, logger: Logger): Promise<JobApplication>;
+    createJobApplicationFromParsedData(jobOpening: JobOpening, upload: FileUpload, parsedData: ParsedCVData, log: Logger): Promise<JobApplication>;
+    moveToStage(jobApplicationID: string, input: JobApplicationAgendaMoveInput, logger: Logger): Promise<void>;
+    findApplicationById(applicationId: string, logger: Logger): Promise<JobApplication>;
+    toggleApplicationStatus(user: UserDocument, applicationId: string, input: ToggleApplicationStatusDTO, logger: Logger): Promise<any>;
+    setApplicationAgendaMeeeting(applicationAgendaId: string, meeting: Meeting, logger: Logger, session: ClientSession): Promise<void>;
+    cancelApplicationOffer(user: UserDocument, applicationID: string, logger: Logger, reason?: string): Promise<any>;
+}

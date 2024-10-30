@@ -1,0 +1,74 @@
+version: 2.1
+
+jobs:
+  build_dev:
+    docker:
+      - image: cimg/base:2022.09
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build and Push application Docker image for Dev
+          command: |
+            docker build -t bento366/xrversatile-staging:latest .
+            echo $DOCKERHUB_PASSWORD | sudo docker login -u $DOCKERHUB_USERNAME --password-stdin
+            sudo docker push bento366/xrversatile-staging:latest
+
+  deploy_dev:
+    docker:
+      - image: cimg/base:2022.09
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:stMMGDPDJ041Wc5WdGvqc9Wgww8wyXeDqgpsqbFno5I"
+      - run:
+          name: Connect Pull to Dev Environment
+          command: ssh -o StrictHostKeyChecking=no ubuntu@102.223.37.37 "echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin && sudo docker pull bento366/xrversatile-staging:latest"
+      - run:
+          name: CleanUp running container
+          command: ssh -o StrictHostKeyChecking=no ubuntu@102.223.37.37 "sudo docker stop xrversatile-staging && sudo docker rm xrversatile-staging"
+      - run:
+          name: Connect and Deploy to Dev Environment
+          command: ssh -o StrictHostKeyChecking=no ubuntu@102.223.37.37 'sudo docker run --env "OPENSSL_CONF='"$OPENSSL_CONF_STAGING"'" --env "S3_ACCESS_KEY='"$S3_KEY"'" --env "S3_SECRET_KEY='"$S3_SECRET"'" --env "API2PDF_API_KEY='"$API2PDF_API_KEY_STAGING"'" --env "DATABASE_HOST='"$DATABASE_HOST_STAGING"'" --env "ENABLE_MOCK_EMAIL='"$ENABLE_MOCK_EMAIL_STAGING"'" --env "ENABLE_MOCK_UPLOADER='"$ENABLE_MOCK_UPLOADER_STAGING"'" --env "JWT_EXPIRES_IN='"$JWT_EXPIRES_IN_STAGING"'" --env "JWT_SECRET='"$JWT_SECRET_STAGING"'" --env "MODE='"$MODE_STAGING"'" --env "NODE_ENV='"$NODE_ENV_STAGING"'" --env "PORT='"$PORT_STAGING"'" --env "S3_BUCKET='"$S3_BUCKET_STAGING"'" -d --restart=on-failure -p 8089:4000 --name xrversatile-staging bento366/xrversatile-staging:latest'
+      - run:
+          name: CleanUp
+          command: ssh -o StrictHostKeyChecking=no ubuntu@102.223.37.37 "sudo docker image prune --force"
+
+  build_master:
+    docker:
+      - image: cimg/base:2022.09
+        auth:
+          username: $DOCKERHUB_USERNAME
+          password: $DOCKERHUB_PASSWORD
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build and Push application Docker image for Production
+          command: |
+            docker build -t bento366/xrversatile-staging:latest .
+            echo $DOCKERHUB_PASSWORD | sudo docker login -u $DOCKERHUB_USERNAME --password-stdin
+            sudo docker push bento366/xrversatile-staging:latest
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build_dev:
+          filters:
+            branches:
+              only:
+                - dev
+      - deploy_dev:
+          requires:
+            - build_dev
+          filters:
+            branches:
+              only:
+                - dev

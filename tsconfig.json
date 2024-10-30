@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./src",
+    "incremental": true,
+    "types": ["node"],
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "paths": {
+      "@src/*": ["./*"],
+      "@config/*": ["config/*"],
+      "@constants/*": ["constants/*"],
+      "@database/*": ["database/*"],
+      "@logger/*": ["logger/*"],
+      "@shared/*": ["shared/*"],
+      "@util/*": ["util/*"],
+      "@user/*": ["user/*"],
+      "@account/*": ["account/*"]
+    }
+  },
+  "include": ["./src/**/*", "./test/**/*"]
+}
