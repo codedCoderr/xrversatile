@@ -13,11 +13,7 @@ async function bootstrap() {
         bodyParser: false,
         bufferLogs: true,
     });
-    app.useGlobalPipes(new common_1.ValidationPipe({
-        whitelist: true,
-        forbidNonWhitelisted: true,
-        transform: true,
-    }));
+    app.useGlobalPipes(new common_1.ValidationPipe());
     app.useGlobalFilters(new all_exception_filter_1.AllExceptionsFilter(app.get(index_1.LOGGER)));
     const port = process.env.PORT || 3000;
     app.use((0, express_1.json)({ limit: '100mb' }));

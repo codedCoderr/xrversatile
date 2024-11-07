@@ -16,9 +16,39 @@ const types_1 = require("../types");
 class CVUploadDTO extends dto_1.FileUploadDTO {
 }
 exports.CVUploadDTO = CVUploadDTO;
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CVUploadDTO.prototype, "firstname", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CVUploadDTO.prototype, "lastname", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CVUploadDTO.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CVUploadDTO.prototype, "phonenumber", void 0);
 class JobApplicationAgendaMoveInput {
 }
 exports.JobApplicationAgendaMoveInput = JobApplicationAgendaMoveInput;
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], JobApplicationAgendaMoveInput.prototype, "currentAgendaID", void 0);
+__decorate([
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], JobApplicationAgendaMoveInput.prototype, "activeAgendaID", void 0);
 class ToggleApplicationStatusDTO {
 }
 exports.ToggleApplicationStatusDTO = ToggleApplicationStatusDTO;

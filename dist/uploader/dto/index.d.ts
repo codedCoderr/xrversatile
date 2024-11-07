@@ -1,21 +1,65 @@
+import { IsNotEmpty } from 'class-validator';
+
 export declare class UploadedResourceDTO {
-    url: string;
-    filename: string;
-    bucket: string;
-    size: number;
-    type: string;
+  @IsNotEmpty()
+  @IsString()
+  url: string;
+
+  @IsNotEmpty()
+  @IsString()
+  filename: string;
+
+  @IsNotEmpty()
+  @IsString()
+  bucket: string;
+
+  @IsNotEmpty()
+  @IsString()
+  size: number;
+
+  @IsNotEmpty()
+  @IsString()
+  type: string;
 }
 export declare class FileUploadDTO {
-    filename: string;
-    size?: number;
-    mime: string;
-    data?: string;
-    url?: string;
-    folder?: string;
+  @IsNotEmpty()
+  @IsString()
+  filename: string;
+
+  @IsOptional()
+  @IsString()
+  size?: number;
+
+  @IsNotEmpty()
+  @IsString()
+  mime: string;
+
+  @IsOptional()
+  @IsString()
+  data?: string;
+
+  @IsOptional()
+  @IsString()
+  url?: string;
+
+  @IsOptional()
+  @IsString()
+  folder?: string;
 }
 export declare class CVUploadDTO extends FileUploadDTO {
-    firstname?: string;
-    lastname?: string;
-    email?: string;
-    phonenumber: string;
+  @IsOptional()
+  @IsString()
+  firstname?: string;
+
+  @IsOptional()
+  @IsString()
+  lastname?: string;
+
+  @IsOptional()
+  @IsString()
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  phonenumber?: string;
 }

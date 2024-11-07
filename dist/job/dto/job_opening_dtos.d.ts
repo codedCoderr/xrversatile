@@ -1,5 +1,5 @@
-import { JobOpeningStatus, JobType } from '../types';
 import { User } from '@src/user/schemas/user.schema';
+import { JobOpeningStatus, JobType } from '../types';
 export declare class JobOpeningDTO {
     companyName: string;
     title: string;

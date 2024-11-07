@@ -15,11 +15,11 @@ export declare const JobApplicationSchema: Schema<any, import("mongoose").Model<
     agendas: Types.ObjectId[];
     job: Types.ObjectId;
     email?: string;
-    deletedAt?: NativeDate;
     firstname?: string;
     lastname?: string;
-    middlename?: string;
     phonenumber?: string;
+    deletedAt?: NativeDate;
+    middlename?: string;
     cvUrl?: {
         url: string;
         mime: string;

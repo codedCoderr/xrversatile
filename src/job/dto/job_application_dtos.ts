@@ -1,20 +1,39 @@
-import { IsEnum, IsIn, IsMongoId, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsIn,
+  IsMongoId,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 import { FileUploadDTO } from '@src/uploader/dto';
 import { JobApplicationStatus } from '../types';
 
 export class CVUploadDTO extends FileUploadDTO {
+  @IsOptional()
+  @IsString()
   firstname?: string;
 
+  @IsOptional()
+  @IsString()
   lastname?: string;
 
+  @IsOptional()
+  @IsString()
   email?: string;
 
-  phonenumber: string;
+  @IsOptional()
+  @IsString()
+  phonenumber?: string;
 }
 export class JobApplicationAgendaMoveInput {
+  @IsNotEmpty()
+  @IsString()
   currentAgendaID: string;
 
+  @IsNotEmpty()
+  @IsString()
   activeAgendaID: string;
 }
 

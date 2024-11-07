@@ -26,11 +26,10 @@ export declare const OfferSchema: Schema<any, import("mongoose").Model<any, any,
     updatedAt: NativeDate;
 } & {
     isDeleted: boolean;
-    subject?: string;
-    application?: import("mongoose").Types.ObjectId;
-    status?: import("../interfaces/offer.interface").OfferStatus;
     deletedAt?: NativeDate;
+    status?: import("../interfaces/offer.interface").OfferStatus;
     job?: import("mongoose").Types.ObjectId;
+    application?: import("mongoose").Types.ObjectId;
     sentBy?: import("mongoose").Types.ObjectId;
     content?: string;
     documentUrl?: string;
@@ -41,4 +40,5 @@ export declare const OfferSchema: Schema<any, import("mongoose").Model<any, any,
     };
     resumptionDate?: string;
     cancelReason?: string;
+    subject?: string;
 }, any>;

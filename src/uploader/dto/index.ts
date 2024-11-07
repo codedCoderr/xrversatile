@@ -1,3 +1,5 @@
+import { IsString, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+
 export class UploadedResourceDTO {
   public url: string;
 
@@ -11,25 +13,44 @@ export class UploadedResourceDTO {
 }
 
 export class FileUploadDTO {
+  @IsString()
+  @IsNotEmpty()
   filename: string;
 
+  @IsNumber()
+  @IsOptional()
   size?: number;
 
+  @IsString()
   mime: string;
 
+  @IsString()
+  @IsOptional()
   data?: string;
 
+  @IsString()
+  @IsOptional()
   url?: string;
 
+  @IsString()
+  @IsOptional()
   folder?: string;
 }
 
 export class CVUploadDTO extends FileUploadDTO {
+  @IsString()
+  @IsOptional()
   firstname?: string;
 
+  @IsString()
+  @IsOptional()
   lastname?: string;
 
+  @IsString()
+  @IsOptional()
   email?: string;
 
-  phonenumber: string;
+  @IsString()
+  @IsOptional()
+  phonenumber?: string;
 }

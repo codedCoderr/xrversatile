@@ -14,13 +14,7 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  );
+  app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new AllExceptionsFilter(app.get<Logger>(LOGGER)));
 
   const port = process.env.PORT || 3000;

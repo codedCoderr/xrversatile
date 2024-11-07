@@ -46,7 +46,7 @@ export class AccountController {
     });
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('/create-admin')
   async createAdmin(
     @Res() res: Response,
